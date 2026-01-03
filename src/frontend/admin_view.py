@@ -2,6 +2,7 @@ import customtkinter as ctk
 from tkinter import messagebox, Toplevel
 import os
 from src.backend.admin_controller import AdminController
+from src.frontend.admin_params import AdminParamsWindow
 
 class AdminDashboard(ctk.CTk):
     def __init__(self):
@@ -39,7 +40,9 @@ class AdminDashboard(ctk.CTk):
         btn_params.pack(pady=10, padx=20)
 
     def show_params_msg(self):
-        messagebox.showinfo("Em desenvolvimento", "Módulo de Parâmetros virá na próxima versão.")
+        # Abre a janela modal de parâmetros
+        param_window = AdminParamsWindow(self)
+        param_window.grab_set() # Foca na janela e impede clique na janela de trás
 
     def create_main_area(self):
         self.main_frame = ctk.CTkFrame(self, corner_radius=10)

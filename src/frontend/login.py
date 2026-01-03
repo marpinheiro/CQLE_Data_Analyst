@@ -95,15 +95,6 @@ class LoginScreen(ctk.CTk):
             self.open_user_dashboard_placeholder()
 
     def open_user_dashboard_placeholder(self):
-        # Tela temporária para o usuário comum
-        dash = ctk.CTk()
-        dash.geometry("800x600")
-        dash.title("CQLE - User Dashboard")
-        
-        if os.path.exists("CQLE.ico"): 
-            dash.iconbitmap("CQLE.ico")
-            
-        ctk.CTkLabel(dash, text="Bem-vindo ao Sistema", font=("Arial", 24)).pack(pady=50)
-        ctk.CTkLabel(dash, text="(Painel do Usuário em Desenvolvimento)", text_color="gray").pack()
-        
-        dash.mainloop()
+        from src.frontend.user_dashboard import UserDashboard
+        app = UserDashboard()
+        app.mainloop()
