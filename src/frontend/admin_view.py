@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from tkinter import messagebox, Toplevel
+from tkinter import messagebox
 import os
 from src.backend.admin_controller import AdminController
 from src.frontend.admin_params import AdminParamsWindow
@@ -33,11 +33,22 @@ class AdminDashboard(ctk.CTk):
         lbl = ctk.CTkLabel(self.sidebar, text="ADMIN PAINEL", font=("Arial", 20, "bold"))
         lbl.pack(pady=30)
 
+        # Botão Usuários (Desativado pois já estamos na tela)
         btn_users = ctk.CTkButton(self.sidebar, text="Usuários", state="disabled", fg_color="gray")
         btn_users.pack(pady=10, padx=20)
         
+        # Botão Parâmetros
         btn_params = ctk.CTkButton(self.sidebar, text="Parâmetros", command=self.show_params_msg)
         btn_params.pack(pady=10, padx=20)
+
+        # --- NOVO BOTÃO: Ir para Dashboard ---
+        btn_dash = ctk.CTkButton(
+            self.sidebar, 
+            text="Ir para Dashboard", 
+            fg_color="#1f6aa5", # Azul padrão do sistema para destaque
+            command=self.open_user_dashboard
+        )
+        btn_dash.pack(pady=10, padx=20)
 
     def show_params_msg(self):
         # Abre a janela modal de parâmetros
@@ -166,3 +177,12 @@ class AdminDashboard(ctk.CTk):
                 messagebox.showerror("Erro", msg)
 
         ctk.CTkButton(modal, text=btn_text, command=save).pack(pady=20)
+
+    # --- NAVEGAÇÃO ---
+    def open_user_dashboard(self):
+        # Importação local para evitar ciclo de dependência (circular import)
+        from src.frontend.user_dashboard import UserDashboard
+        
+        self.destroy() # Fecha a janela atual (Admin)
+        app = UserDashboard() # Abre a Dashboard
+        app.mainloop()
